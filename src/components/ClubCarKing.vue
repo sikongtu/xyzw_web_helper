@@ -103,11 +103,12 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import { useMessage } from 'naive-ui'
+import { useMessage, useDialog } from 'naive-ui'
 import { useTokenStore } from '@/stores/tokenStore'
 
 const tokenStore = useTokenStore()
 const message = useMessage()
+const dialog = useDialog()
 
 const carLoading = ref(false)
 const carRaw = ref(null)
@@ -352,6 +353,38 @@ const refreshCar = async (car) => {
     message.warning('仅未发车的车辆可刷新品阶')
     return
   }
+  
+  // 检查是否包含大奖，防止误刷
+  const hasBigPrize = isBigPrize(car.rewards)
+  if (hasBigPrize) {
+    const confirmed = await new Promise((resolve) => {
+      dialog.warning({
+        title: '确认刷新',
+        content: '⚠️ 该车辆包含大奖！刷新将会丢失大奖奖励。\n\n确定要刷新吗？',
+        positiveText: '确定刷新',
+        negativeText: '取消',
+        maskClosable: false,
+        closable: false,
+        onPositiveClick: () => {
+          resolve(true)
+        },
+        onNegativeClick: () => {
+          resolve(false)
+        },
+        onMaskClick: () => {
+          resolve(false)
+        },
+        onClose: () => {
+          resolve(false)
+        }
+      })
+    })
+    
+    if (!confirmed) {
+      return
+    }
+  }
+  
   try {
     if (!(Number(car.refreshCount ?? 0) === 0)) {
       message.info('将消耗车票进行刷新')

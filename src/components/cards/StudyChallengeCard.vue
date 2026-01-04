@@ -48,8 +48,8 @@
       >
         答题完成
       </a-button>
-      <a-button v-if="study.thisWeek" status="success" :disabled="true">
-        ✅ 已完成无需作答
+      <a-button v-if="study.thisWeek" status="success" @click="startStudy">
+        ✅ 已完成，点击可继续答题
       </a-button>
     </template>
   </MyCard>
@@ -70,7 +70,7 @@ const message = useMessage();
 const study = computed(() => tokenStore.gameData.studyStatus);
 
 const startStudy = async () => {
-  if (!tokenStore.selectedToken || study.value.thisWeek) return;
+  if (!tokenStore.selectedToken) return;
   if (study.value.status != "" && study.value.status != "idel") return;
   console.log("开始答题", study.value);
 
@@ -80,8 +80,8 @@ const startStudy = async () => {
   const questionCount = await getQuestionCount();
   message.info(`🚀 开始一键答题... (题库包含 ${questionCount} 道题目)`);
 
+  // 移除对已完成状态的检查，允许用户重复答题
   if (study.value.isCompleted)
-    return message.success("✅ 咸鱼大冲关任务已完成，无需重复作答！");
   try {
     tokenStore.gameData.studyStatus = {
       ...tokenStore.gameData.studyStatus,
