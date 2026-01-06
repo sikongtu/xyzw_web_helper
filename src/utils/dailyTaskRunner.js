@@ -649,6 +649,16 @@ export class DailyTaskRunner {
             "领取周常任务奖励",
           ),
       },
+      {
+        name: "领取通行证奖励",
+        execute: () =>
+          this.executeGameCommand(
+            tokenId,
+            "activity_recyclewarorderrewardclaim",
+            { actId: 1 },
+            "领取通行证奖励",
+          ),
+      },
     );
 
     // 执行
