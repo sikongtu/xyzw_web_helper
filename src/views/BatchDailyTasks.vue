@@ -1006,6 +1006,8 @@ const legion_storebuygoods = async () => {
       });
       tokenStatus.value[tokenId] = "failed";
     } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
       await new Promise((r) => setTimeout(r, 1000)); // Add a small delay between accounts
     }
   }
@@ -1081,6 +1083,8 @@ const collection_claimfreereward = async () => {
       });
       tokenStatus.value[tokenId] = "failed";
     } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
       await new Promise((r) => setTimeout(r, 1000)); // Add a small delay between accounts
     }
   }
@@ -1161,6 +1165,8 @@ const store_purchase = async () => {
       });
       tokenStatus.value[tokenId] = "failed";
     } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
       await new Promise((r) => setTimeout(r, 1000)); // Add a small delay between accounts
     }
   }
@@ -2143,10 +2149,13 @@ const resetBottles = async () => {
         message: `重置失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      await new Promise((r) => setTimeout(r, 500));
     }
 
     currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
 
   isRunning.value = false;
@@ -2231,10 +2240,13 @@ const claimHangUpRewards = async () => {
         message: `领取失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      await new Promise((r) => setTimeout(r, 500));
     }
 
     currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
 
   isRunning.value = false;
@@ -2305,9 +2317,12 @@ const batchbaoku13 = async () => {
         message: `宝库战斗失败: ${error.message || "未知错误"}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
   isRunning.value = false;
   currentRunningTokenId.value = null;
@@ -2368,9 +2383,12 @@ const batchbaoku45 = async () => {
         message: `宝库战斗失败: ${error.message || "未知错误"}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
   isRunning.value = false;
   currentRunningTokenId.value = null;
@@ -2438,9 +2456,12 @@ const batchmengjing = async () => {
         message: `咸王梦境失败: ${error.message || "未知错误"}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
   isRunning.value = false;
   currentRunningTokenId.value = null;
@@ -2492,9 +2513,12 @@ const batchlingguanzi = async () => {
         message: `领取盐罐失败: ${error.message || "未知错误"}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
   isRunning.value = false;
   currentRunningTokenId.value = null;
@@ -2546,9 +2570,12 @@ const batchclubsign = async () => {
         message: `俱乐部签到失败: ${error.message || "未知错误"}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
   isRunning.value = false;
   currentRunningTokenId.value = null;
@@ -2637,9 +2664,12 @@ const batcharenafight = async () => {
         message: `竞技场战斗失败: ${error.message || "未知错误"}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
   isRunning.value = false;
   currentRunningTokenId.value = null;
@@ -2698,9 +2728,12 @@ const batchAddHangUpTime = async () => {
         message: `加钟失败: ${error.message || "未知错误"}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
   isRunning.value = false;
   currentRunningTokenId.value = null;
@@ -2926,10 +2959,12 @@ const climbTower = async () => {
         message: `爬塔失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
 
   isRunning.value = false;
@@ -3065,10 +3100,12 @@ const batchStudy = async () => {
         message: `答题失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
 
   isRunning.value = false;
@@ -3292,9 +3329,12 @@ const batchTopUpFish = async () => {
         message: `钓鱼补齐失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
   isRunning.value = false;
   currentRunningTokenId.value = null;
@@ -3538,9 +3578,12 @@ const batchTopUpArena = async () => {
         message: `竞技场补齐失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
   isRunning.value = false;
   currentRunningTokenId.value = null;
@@ -3856,10 +3899,12 @@ const batchSmartSendCar = async () => {
         message: `智能发车失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
 
   isRunning.value = false;
@@ -3962,10 +4007,12 @@ const batchClaimCars = async () => {
         message: `收车失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
 
   isRunning.value = false;
@@ -4054,9 +4101,9 @@ const startBatch = async () => {
       }
     }
 
-    // Optional: Disconnect if it wasn't connected before?
-    // For now, keep it connected or let the store manage it.
-    // Maybe wait a bit before next
+    // 任务完成后断开连接
+    tokenStore.closeWebSocketConnection(tokenId);
+    // Wait a bit before next account
     await new Promise((r) => setTimeout(r, 1000));
   }
 
@@ -4123,10 +4170,12 @@ const batchClaimBoxPointReward = async () => {
         message: `领取失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      currentProgress.value = 100;
+      await new Promise((r) => setTimeout(r, 500));
     }
-
-    currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
 
   isRunning.value = false;
@@ -4232,10 +4281,13 @@ const batchOpenBox = async () => {
         message: `开箱失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      await new Promise((r) => setTimeout(r, 500));
     }
 
     currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
 
   isRunning.value = false;
@@ -4332,6 +4384,10 @@ const batchFish = async () => {
         message: `钓鱼失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      await new Promise((r) => setTimeout(r, 500));
     }
 
     currentProgress.value = 100;
@@ -4430,10 +4486,13 @@ const batchRecruit = async () => {
         message: `招募失败: ${error.message}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      await new Promise((r) => setTimeout(r, 500));
     }
 
     currentProgress.value = 100;
-    await new Promise((r) => setTimeout(r, 500));
   }
 
   isRunning.value = false;
@@ -4509,6 +4568,10 @@ const batchClaimFreeEnergy = async () => {
         message: `=== ${token.name} 领取免费道具失败: ${error.message || "未知错误"}`,
         type: "error",
       });
+    } finally {
+      // 任务完成后断开连接
+      tokenStore.closeWebSocketConnection(tokenId);
+      await new Promise((r) => setTimeout(r, 500));
     }
     currentProgress.value = 100;
     await new Promise((r) => setTimeout(r, 500));
@@ -4521,6 +4584,10 @@ const batchClaimFreeEnergy = async () => {
 
 const stopBatch = () => {
   shouldStop.value = true;
+  // 断开当前正在运行的token连接
+  if (currentRunningTokenId.value) {
+    tokenStore.closeWebSocketConnection(currentRunningTokenId.value);
+  }
   addLog({
     time: new Date().toLocaleTimeString(),
     message: "正在停止...",
